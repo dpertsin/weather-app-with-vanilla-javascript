@@ -17,6 +17,8 @@ weather.temperature = {
 
 // APP CONSTS AND VARS
 const KELVIN = 273;
+const event = new Date();
+const options = { weekday: "long", year: "numeric", month: "long", day: "numeric"};
 
 // Check if the browser supports geolocation
 if("geolocation" in navigator){
@@ -54,6 +56,7 @@ function getWeather(latitude, longitude){
             weather.iconId = data.weather[0].icon;
             weather.city = data.name;
             weather.country = data.sys.country;
+            weather.day = event.toLocaleDateString(undefined, options);
         })
         .then(function(){
             displayWeather();
@@ -66,6 +69,5 @@ function displayWeather(){
     weatherElement.innerHTML = weather.description;
     tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
     locationElement.innerHTML = `${weather.city}, ${weather.country}`;
+    dayElement.innerHTML = `${weather.day}`;
 }
-
-// Show the date right!
